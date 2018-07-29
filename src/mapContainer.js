@@ -12,12 +12,14 @@ export class MapContainer extends Component {
     selectedPlace: {},
   };
  
-  onMarkerClick = (props, marker, e) =>
+  onMarkerClick = (props, marker, e) => {
     this.setState({
       selectedPlace: props,
       activeMarker: marker,
       showingInfoWindow: true
     });
+    this.props.getData(marker.title);
+    }
 
     onMapClicked = (props) => {
     if (this.state.showingInfoWindow) {
@@ -29,7 +31,7 @@ export class MapContainer extends Component {
   };
 
 	render(){
-		const {locations} = this.props;
+		const {locations,content,getData} = this.props;
 		  if (!this.props.loaded) {
       return <div>Loading...</div>
     }
@@ -55,7 +57,8 @@ export class MapContainer extends Component {
           marker={this.state.activeMarker}
           visible={this.state.showingInfoWindow}>
             <div>
-              <h1>{this.state.selectedPlace.name}</h1>
+              <h1>{this.state.selectedPlace.title}</h1>
+              <p>{content}</p>
             </div>
         </InfoWindow>
        </Map>

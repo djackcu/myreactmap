@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
 import MapContainer from './mapContainer'
 import datalocations from './Locations'
+import fetchJsonp from 'fetch-jsonp'
 
 class App extends Component {
   state = {
@@ -11,27 +11,16 @@ class App extends Component {
 componentDidMount(){
 this.getData("Havana Cathedral");
 }
+//Fetch data from Wikipedia
 getData = (title) =>{
-  const api ='https://en.wikipedia.org/w/api.php' ;
-  let data = {
-    "mode": "no-cors",   
-    "action": "query",
-    "format": "json",
-    "prop": "extracts",
-    "titles": title,
-    "formatversion": "2",
-    "exsentences": "5",
-    "explaintext": 1
-  }
-  const api2 = 'https://en.wikipedia.org/w/api.php?action=query&format=json&prop=extracts&titles=Havana%20Cathedral&formatversion=2&exsentences=5&explaintext=1';
-  const data2 = {
-    "mode": "no-cors"
-  }
+  const urlTitle = title.replace(/\s/gm,'%20')
+  const api = 'https://en.wikipedia.org/w/api.php?action=query&format=json&prop=extracts&formatversion=2&exsentences=5&exlimit=1&explaintext=1&titles='+ urlTitle;
 
-  fetch(api2, data2)
-  .then((response) =>response.json)
+  fetchJsonp(api)
+  .then((response) =>response.json())
   .then(data => {
-        console.log(data);
+        let placeExtract = data.query.pages[0];
+        console.log(placeExtract);
   });}
 
   

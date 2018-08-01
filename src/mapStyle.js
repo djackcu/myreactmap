@@ -1,5 +1,5 @@
-// Change map style
-const mapStyle = {styles:[
+// Map style Vintage Old Golden Brown [https://snazzymaps.com/style/126378/vintage-old-golden-brown] by beniamino nobile [http://www.beniaminonobile.me]
+const mapStyle = [
     	{
     	"featureType": "all",
 			"elementType": "all",
@@ -71,6 +71,6 @@ const mapStyle = {styles:[
 	     	"stylers": [{ "lightness": -20 }, 
 	     	{ "color": "#ecc080" }]
 	     }
-]};
+];
 
 export default mapStyle;

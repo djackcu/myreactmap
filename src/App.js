@@ -12,8 +12,8 @@ class App extends Component {
     content:'',
     query:'',
     showInfoWindow: false,
-    activeMarker: {},
-    selectedPlace: {},
+    activeMarker: null,
+    selectedPlace: null
   }
 componentDidMount(){
     this.setState({listLocations:datalocations})
@@ -21,11 +21,11 @@ componentDidMount(){
 //Fetch data from Wikipedia
 getData = (title) =>{
   const urlTitle = title.replace(/\s/gm,'%20')
-  const api = 'https://en.wikipedia.org/w/api.php?action=query&format=json&prop=extracts&formatversion=2&exsentences=5&exlimit=1&explaintext=1&titles='+ urlTitle;
+  const api = 'https://en.wikipedia.org/w/api.php?action=query&format=json&prop=extracts&formatversion=2&exsentence=3&exlimit=1&explaintext=1&titles='+ urlTitle;
   fetchJsonp(api)
   .then((response) =>response.json())
   .then(data => {
-        let placeExtract = data.query.pages[0].extract;
+        let placeExtract = data.query.pages[0].extract.split('==')[0];
         this.setState({content:placeExtract});
   });}
 searchLocations = (query) => {
@@ -38,33 +38,43 @@ searchLocations = (query) => {
   }
   this.setState({listLocations:locationSearched, query:query.trim()})
 }
-onMarkerClick = (props, marker, e) => {
+onMarkerClick = (props, marker) => {
+    const {title,position} = props;
     this.setState({
-      selectedPlace: props,
+      selectedPlace: {title,position},
       activeMarker: marker,
       showInfoWindow: true
     });
     this.getData(marker.title);
     }
 
-onMapClicked = (props) => {
+onCloseClicked = (props) => {
     if (this.state.showInfoWindow) {
       this.setState({
         showInfoWindow: false,
-        activeMarker: null
+        activeMarker: null,
+        selectedPlace: null,
+        content:''
       })
     }
   };
+
+  onSelectPlace = (place) => {
+    this.setState({
+      selectedPlace: place
+    });
+    this.getData(place.title);
+  }
   
   render() {
     const {listLocations, content, query,activeMarker,showInfoWindow,selectedPlace} = this.state;
     return (
       <div className="App">
         <header className="App-header">
-          <h1 className="App-title">Welcome to Havana City</h1>
+          <h1 className="App-title">Welcome to Old Havana City</h1>
         </header>
-        <SideBar className="App-sideBar" locations={listLocations} searchLocations={this.searchLocations} query={query}/>
-        <MapContainer className="App-map" locations={listLocations} content={content} onMapClicked={this.onMapClicked} onMarkerClick={this.onMarkerClick} activeMarker={activeMarker} showInfoWindow={showInfoWindow} selectedPlace={selectedPlace}/>
+        <SideBar className="App-sideBar" locations={listLocations} searchLocations={this.searchLocations} query={query} content={content} onSelectPlace={this.onSelectPlace}/>
+        <MapContainer className="App-map" locations={listLocations} onCloseClicked={this.onCloseClicked} onMarkerClick={this.onMarkerClick} activeMarker={activeMarker} showInfoWindow={showInfoWindow} selectedPlace={selectedPlace}/>
       </div>
     );
   }

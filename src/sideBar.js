@@ -1,7 +1,7 @@
 import React from 'react';
 
 const SideBar = (props) => {
-    	const { locations, query, searchLocations } = props;
+    	const { locations, query, searchLocations,content,onSelectPlace } = props;
         return ( 
         	<div className="sidebar" >
         	<div className="search-places-input-wrapper">
@@ -11,11 +11,16 @@ const SideBar = (props) => {
                 onChange={(event) => searchLocations(event.target.value)}
                 />
               </div>
-	            <ul className="list-places">
-	              {locations.map((local) => (
-	              	<li  key={local.title}>{local.title}</li>
-	              ))}
-	            </ul>
+	           <div> 
+		           <ul className="list-places">
+		              {locations.map((local) => (
+		              	<li  key={local.title}><a onClick={() => onSelectPlace(local)}>{local.title}</a></li>
+		              ))}
+		            </ul>
+	            </div>
+	            <div>
+	            	<p>{content}</p>
+	            </div>
 	         </div>
 	        )
 }

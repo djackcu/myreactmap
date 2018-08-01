@@ -1,5 +1,5 @@
 // Map style Vintage Old Golden Brown [https://snazzymaps.com/style/126378/vintage-old-golden-brown] by beniamino nobile [http://www.beniaminonobile.me]
-const mapStyle = [
+export const mapStyle = [
     	{
     	"featureType": "all",
 			"elementType": "all",
@@ -73,4 +73,9 @@ const mapStyle = [
 	     }
 ];
 
-export default mapStyle;
+export const style = {
+  width: '100vw',
+  height: '100vh'
+}
+
+//export default {mapStyle, style};

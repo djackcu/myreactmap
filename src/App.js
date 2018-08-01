@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 import fetchJsonp from 'fetch-jsonp'
 import escapeRegExp from 'escape-string-regexp'
-import './App.css';
 import MapContainer from './mapContainer'
-import datalocations from './Locations'
+import dataLocations from './Locations'
 import SideBar from './sideBar'
 
 class App extends Component {
@@ -16,7 +15,7 @@ class App extends Component {
     selectedPlace: null
   }
 componentDidMount(){
-    this.setState({listLocations:datalocations})
+    this.setState({listLocations:dataLocations})
 }
 //Fetch data from Wikipedia
 getData = (title) =>{
@@ -27,16 +26,23 @@ getData = (title) =>{
   .then(data => {
         let placeExtract = data.query.pages[0].extract.split('==')[0];
         this.setState({content:placeExtract});
+  })
+  .catch((err) => {
+    this.setState({content:'Description no available'});
+    console.log(err);
   });}
 searchLocations = (query) => {
   let locationSearched;
+  console.log(query);
   if (query) {
     const match = new RegExp(escapeRegExp(query.trim()),'i')
-    locationSearched = this.state.listLocations.filter(location => match.test(location.title))
+    locationSearched = dataLocations.filter(location => match.test(location.title))
   }else {
-    locationSearched = datalocations;
+    locationSearched = dataLocations;
   }
+  console.log(locationSearched)
   this.setState({listLocations:locationSearched, query:query.trim()})
+  this.resetSelected();
 }
 onMarkerClick = (props, marker) => {
     const {title,position} = props;
@@ -48,16 +54,14 @@ onMarkerClick = (props, marker) => {
     this.getData(marker.title);
     }
 
-onCloseClicked = (props) => {
-    if (this.state.showInfoWindow) {
-      this.setState({
+resetSelected = (props) => {
+    this.setState({
         showInfoWindow: false,
         activeMarker: null,
         selectedPlace: null,
         content:''
       })
-    }
-  };
+    };
 
   onSelectPlace = (place) => {
     this.setState({
@@ -73,8 +77,8 @@ onCloseClicked = (props) => {
         <header className="App-header">
           <h1 className="App-title">Welcome to Old Havana City</h1>
         </header>
-        <SideBar className="App-sideBar" locations={listLocations} searchLocations={this.searchLocations} query={query} content={content} onSelectPlace={this.onSelectPlace}/>
-        <MapContainer className="App-map" locations={listLocations} onCloseClicked={this.onCloseClicked} onMarkerClick={this.onMarkerClick} activeMarker={activeMarker} showInfoWindow={showInfoWindow} selectedPlace={selectedPlace}/>
+        <SideBar className="App-sideBar" locations={listLocations} searchLocations={this.searchLocations} onCloseClicked={this.resetSelected} query={query} content={content} onSelectPlace={this.onSelectPlace}/>
+        <MapContainer className="App-map" locations={listLocations} onCloseClicked={this.resetSelected} onMarkerClick={this.onMarkerClick} activeMarker={activeMarker} showInfoWindow={showInfoWindow} selectedPlace={selectedPlace}/>
       </div>
     );
   }

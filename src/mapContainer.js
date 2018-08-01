@@ -1,16 +1,16 @@
 import React, { Component } from 'react';
 import {Map, Marker,InfoWindow, GoogleApiWrapper} from 'google-maps-react';
-import mapStyle from './mapStyle'
+import {mapStyle, style} from './mapStyle'
 
  
 // ...
  
 class MapContainer extends Component {
-	fetchPlaces(mapProps, map) {
+	/*fetchPlaces(mapProps, map) {
 		  const {google} = mapProps;
 		  const service = new google.maps.places.PlacesService(map);
 		  // ...
-		}
+		}*/
 
 	render(){
 		const {locations,onCloseClicked,onMarkerClick,activeMarker,showInfoWindow,selectedPlace} = this.props;
@@ -18,13 +18,15 @@ class MapContainer extends Component {
       return <div>Loading...</div>
     }
 		return(
-	<Map
+			<div className="App-map">
+		<Map 
           google={this.props.google}
+          style={style}
           styles={mapStyle}
-          onReady={this.fetchPlaces}
+          //onReady={this.fetchPlaces}
           initialCenter={{
-          	lat: 23.1463989,
-          	lng:-82.3551359
+          	lat: 23.142807,
+          	lng:-82.353098
           }}
           zoom={15.75}
           disableDefaultUI = {true}
@@ -52,11 +54,11 @@ class MapContainer extends Component {
 	        	{selectedPlace?
 		            (<div>
 		              <h2>{selectedPlace.title}</h2>
-		              <p>adresse</p>
 		            </div>):(<p>No info</p>)
 	        	}
 		    </InfoWindow>
        </Map>
+       </div>
        )}
 }
  

@@ -1,5 +1,5 @@
 // Change map style
-const mapStyle = [
+const mapStyle = {styles:[
     	{
     	"featureType": "all",
 			"elementType": "all",
@@ -71,6 +71,6 @@ const mapStyle = [
 	     	"stylers": [{ "lightness": -20 }, 
 	     	{ "color": "#ecc080" }]
 	     }
-];
+]};
 
 export default mapStyle;

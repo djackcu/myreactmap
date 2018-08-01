@@ -1,63 +1,41 @@
 import React, { Component } from 'react';
 import {Map, Marker,InfoWindow, GoogleApiWrapper} from 'google-maps-react';
 
-//import mapStyle from './mapStyle'
+import mapStyle from './mapStyle'
  
 // ...
  
-export class MapContainer extends Component {
-	state = {
-    showingInfoWindow: false,
-    activeMarker: {},
-    selectedPlace: {},
-  };
- 
-  onMarkerClick = (props, marker, e) => {
-    this.setState({
-      selectedPlace: props,
-      activeMarker: marker,
-      showingInfoWindow: true
-    });
-    this.props.getData(marker.title);
-    }
-
-    onMapClicked = (props) => {
-    if (this.state.showingInfoWindow) {
-      this.setState({
-        showingInfoWindow: false,
-        activeMarker: null
-      })
-    }
-  };
-
+class MapContainer extends Component {
 	render(){
-		const {locations,content,getData} = this.props;
+		const {locations,content,onMapClicked,onMarkerClick,activeMarker,showInfoWindow,selectedPlace} = this.props;
 		  if (!this.props.loaded) {
       return <div>Loading...</div>
     }
 		return(
 	<Map
           google={this.props.google}
-          //style={mapStyle}
+          style={mapStyle}
           initialCenter={{
           	lat: 23.1407664,
           	lng:-82.3581826
           }}
           zoom={15.75}
-          onClick={this.onMapClicked}
+          disableDefaultUI = {true}
+          onClick={onMapClicked}
           >
 		    {locations.map(local =>(
 		    	<Marker key={local.title}
 		    		title={local.title}
 		    		position={local.location}
-		    		onClick={this.onMarkerClick}
+		    		onClick={onMarkerClick}
                 /> 
 		    	))}
 		    <InfoWindow
-          marker={this.state.activeMarker}
-          visible={this.state.showingInfoWindow}>
+          marker={activeMarker}
+          //position={selectedPlace.position}
+          visible={showInfoWindow}>
             <div>
-              <h1>{this.state.selectedPlace.title}</h1>
+              <h1>{selectedPlace.title}</h1>
               <p>{content}</p>
             </div>
         </InfoWindow>

@@ -13,7 +13,7 @@
   font-size: 1.5em;
 }
 
-.App-intro {
+.App-map {
   margin-left: 200px;
 }
 
@@ -22,11 +22,19 @@
   width: 200px;
   position: fixed;
   z-index: 1;
-  top: 0;
+  top: 50px;
   left: 0;
-  background-color: #111;
+  background-color: #222;
+  color: white;
   overflow-x: hidden;
   padding-top: 20px;
+}
+.sidebar ul{
+	list-style-type: none;
+	padding: 10px; 
+}
+.sidebar li{
+	padding-top: 10px;
 }
 @keyframes App-logo-spin {
   from { transform: rotate(0deg); }

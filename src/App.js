@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import fetchJsonp from 'fetch-jsonp'
 import escapeRegExp from 'escape-string-regexp'
 import MapContainer from './mapContainer'
+import MyMap from './mapComponent'
 import dataLocations from './Locations'
 import SideBar from './sideBar'
 
@@ -72,10 +73,10 @@ onSelectPlace = (place) => {
           <h1 className="App-title">Welcome to Old Havana City</h1>
         </header>
         <SideBar className="App-sideBar" locations={listLocations} searchLocations={this.searchLocations} onCloseClicked={this.resetSelected} query={query} selectedPlace={selectedPlace} onSelectPlace={this.onSelectPlace}/>
-        <MapContainer className="App-map" locations={listLocations} onCloseClicked={this.resetSelected} onSelectPlace={this.onSelectPlace} showInfoWindow={showInfoWindow} selectedPlace={selectedPlace}/>
+        <MyMap/>
       </div>
     );
   }
 }
-
+//<MapContainer className="App-map" locations={listLocations} onCloseClicked={this.resetSelected} onSelectPlace={this.onSelectPlace} showInfoWindow={showInfoWindow} selectedPlace={selectedPlace}/>
 export default App;

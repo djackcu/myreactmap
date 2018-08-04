@@ -7,25 +7,15 @@ import {mapStyle, style, apiKey, mapVal} from './mapProps'
  
 class MapContainer extends Component {
 	state = {
-	    activeMarker: null,
-	    map:{}
+	    activeMarker: null
   	}
-
-	fetchPlaces(mapProps, map) {
-		console.log(map);
-		//const {google} = mapProps;
-		//const service = new google.maps.places.PlacesService(map);
-		// ...
-		}
 
   	onMarkerClick = (props, marker) => {
     this.props.onSelectPlace(marker);
       this.setState({
         activeMarker: marker
       });
-      console.log(this.props.google);
     }
-
 
 	render(){
 		const {locations,onCloseClicked,showInfoWindow,selectedPlace} = this.props;
@@ -34,11 +24,10 @@ class MapContainer extends Component {
     }
 		return(
 			<div className="App-map">
-		<Map 
+		<Map
           google={this.props.google}
           style={style}
           styles={mapStyle}
-          onReady={this.fetchPlaces}
           initialCenter={{
           	lat: mapVal.lat,
           	lng: mapVal.lng
@@ -76,6 +65,45 @@ class MapContainer extends Component {
        </div>
        )}
 }
+// class MarkerWithInfoWindows extends Component {
+// 	state = {
+// 	    activeMarker: null,
+// 	    activeinfoWindow:nul
+//   	}
+
+// 	create() {
+// 		const {google,mapCenter,map,visible} = this.props;
+		
+// 		const contentString = 'test';
+
+        
+
+//         let marker = new google.maps.Marker({
+//           position: mapCenter,
+//           map: map,
+//           title: 'Center',
+//           visible:visible
+//         });
+//         const infowindow = new google.maps.InfoWindow({
+//           content: contentString,
+//           maxWidth: 200
+//         });
+//         setState({activeMarker:marker,activeinfoWindow:infowindow})
+//       	infowindow.open(map,marker)
+//       	infowindow.visible = false
+//       }
+
+
+// 	render(){
+// 		const {place,google,map,visible} = this.props;
+// 		console.log(this.props)
+// 		this.create();
+// 		return(
+// 			<div >
+			
+//        		</div>
+//        )}
+// }
  
 export default GoogleApiWrapper({
   apiKey: apiKey

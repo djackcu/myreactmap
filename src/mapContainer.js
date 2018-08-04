@@ -3,7 +3,7 @@ import {Map, Marker,InfoWindow, GoogleApiWrapper} from 'google-maps-react';
 import {mapStyle, style, apiKey, mapVal} from './mapProps'
 
  
-// ...
+// Map container to visualize using google-maps-react(under construction for use of advanced skills)
  
 class MapContainer extends Component {
 	state = {

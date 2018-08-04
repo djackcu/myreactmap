@@ -1,8 +1,9 @@
 import React from "react"
-import ReactDOM from "react-dom";
 import { compose, withProps } from "recompose"
-import { withScriptjs, withGoogleMap, GoogleMap, Marker } from "react-google-maps"
+import { withScriptjs, withGoogleMap, GoogleMap, Marker, InfoWindow } from "react-google-maps"
 import {mapStyle, style, apiKey, mapVal} from './mapProps'
+
+//Map container to visualize google maps using react-google-maps (working)
 
 const MyMapComponent = compose(
   withProps({
@@ -17,36 +18,43 @@ const MyMapComponent = compose(
   <GoogleMap
     defaultZoom={mapVal.zoom}
     defaultCenter={{ lat: mapVal.lat, lng: mapVal.lng }}
+    onClick={props.onCloseClicked}
+    defaultOptions={{styles: mapStyle}}
   >
-    {props.isMarkerShown && <Marker position={{ lat: -34.397, lng: 150.644 }} onClick={props.onMarkerClick} />}
+    {(props.showInfoWindow&&props.selectedPlace)?
+          (<Marker key={props.selectedPlace.title}
+            title={props.selectedPlace.title}
+            position={props.selectedPlace.position}
+            animation={window.google.maps.Animation.BOUNCE}
+            onClick={() => props.onSelectPlace(props.selectedPlace)}>
+            <InfoWindow
+            onCloseClick={props.onCloseClicked}
+            >
+            {props.selectedPlace?
+                (<div>
+                  <h2>{props.selectedPlace.title}</h2>
+                  <p>{props.selectedPlace.content}</p>
+                </div>):(<p>No info</p>)
+            }
+        </InfoWindow>
+          </Marker>):
+          (props.locations.map(local =>(
+            <Marker key={local.title}
+              title={local.title}
+              position={local.position}
+              onClick={() => props.onSelectPlace(local)}
+            /> 
+          )))}
   </GoogleMap>
 )
 
 class MyMap extends React.PureComponent {
-  state = {
-    isMarkerShown: false,
-  }
-
-  componentDidMount() {
-    this.delayedShowMarker()
-  }
-
-  delayedShowMarker = () => {
-    setTimeout(() => {
-      this.setState({ isMarkerShown: true })
-    }, 3000)
-  }
-
-  handleMarkerClick = () => {
-    this.setState({ isMarkerShown: false })
-    this.delayedShowMarker()
-  }
 
   render() {
+    const {locations,showInfoWindow,selectedPlace,onCloseClicked,onSelectPlace} = this.props;
     return (
       <MyMapComponent
-        isMarkerShown={this.state.isMarkerShown}
-        onMarkerClick={this.handleMarkerClick}
+        locations={locations} showInfoWindow={showInfoWindow} selectedPlace={selectedPlace} onCloseClicked={onCloseClicked} onSelectPlace={onSelectPlace} 
       />
     )
   }

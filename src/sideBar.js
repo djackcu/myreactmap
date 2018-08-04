@@ -20,9 +20,6 @@ const SideBar = (props) => {
   		              )))}
 		            </ul>
 	            </div>
-	            <div className="description" onClick={() => onCloseClicked()}>
-	            	<p>{selectedPlace&&selectedPlace.content}</p>
-	            </div>
 	            <footer>By Dieter Jackson</footer>
 	         </div>
 	        )

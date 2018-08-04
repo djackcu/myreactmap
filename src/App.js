@@ -1,23 +1,22 @@
 import React, { Component } from 'react';
 import fetchJsonp from 'fetch-jsonp'
 import escapeRegExp from 'escape-string-regexp'
-import MapContainer from './mapContainer'
 import MyMap from './mapComponent'
 import dataLocations from './Locations'
 import SideBar from './sideBar'
+//import MapContainer from './mapContainer'
 
 class App extends Component {
   state = {
     listLocations:[],
     query:'',
     showInfoWindow: false,
-    activeMarker: null,
     selectedPlace: null
   }
 componentDidMount(){
     this.setState({listLocations:dataLocations})
 }
-//Fetch data from Wikipedia
+//Fetch data from Wikipedia using jsonp
 getData = (place) =>{
   const {title} = place;
   const urlTitle = title.replace(/\s/gm,'%20')
@@ -31,7 +30,7 @@ getData = (place) =>{
     return content;
   });
 }
-
+//Search in the list of locations
 searchLocations = (query) => {
   let locationSearched;
   console.log(query);
@@ -45,24 +44,26 @@ searchLocations = (query) => {
   this.setState({listLocations:locationSearched, query:query.trim()})
   this.resetSelected();
 }
-
+//Deselect location and view all locations
 resetSelected = (props) => {
     this.setState({
         showInfoWindow: false,
         selectedPlace: null
       })
     };
-
+//Selecting location
 onSelectPlace = (place) => {
     const {title,position} = place;
     this.getData(place)
     .then((content) => {
       this.setState({
           selectedPlace:{title,position,content},
-          showInfoWindow: true
         });
     });
-    
+//Delay while the data is fetched
+    setTimeout(() => {
+      this.setState({ showInfoWindow: true })
+    }, 1000)
   }
   
   render() {
@@ -73,10 +74,11 @@ onSelectPlace = (place) => {
           <h1 className="App-title">Welcome to Old Havana City</h1>
         </header>
         <SideBar className="App-sideBar" locations={listLocations} searchLocations={this.searchLocations} onCloseClicked={this.resetSelected} query={query} selectedPlace={selectedPlace} onSelectPlace={this.onSelectPlace}/>
-        <MyMap/>
+        <MyMap className="App-map" locations={listLocations} onCloseClicked={this.resetSelected} onSelectPlace={this.onSelectPlace} showInfoWindow={showInfoWindow} selectedPlace={selectedPlace}/>
       </div>
     );
   }
 }
+
 //<MapContainer className="App-map" locations={listLocations} onCloseClicked={this.resetSelected} onSelectPlace={this.onSelectPlace} showInfoWindow={showInfoWindow} selectedPlace={selectedPlace}/>
 export default App;

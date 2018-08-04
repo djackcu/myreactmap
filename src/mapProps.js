@@ -78,4 +78,12 @@ export const style = {
   height: '100vh'
 }
 
+export const apiKey = 'AIzaSyCZu8GDVI_5mWqkt-kH0maxMw01y7oR-5E'
+
+export const mapVal = {
+		lat: 23.142807,
+	    lng:-82.353098,
+	    zoom: 15.75
+}
+
 //export default {mapStyle, style};

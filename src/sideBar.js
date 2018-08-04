@@ -1,7 +1,7 @@
 import React from 'react';
 
 const SideBar = (props) => {
-    	const { locations, query, searchLocations,content,onSelectPlace,onCloseClicked } = props;
+    	const { locations, query, searchLocations,selectedPlace,onSelectPlace,onCloseClicked } = props;
         return ( 
         	<div className="App-sidebar" >
         		<div className="search-places-input-wrapper">
@@ -21,7 +21,7 @@ const SideBar = (props) => {
 		            </ul>
 	            </div>
 	            <div className="description" onClick={() => onCloseClicked()}>
-	            	<p>{content}</p>
+	            	<p>{selectedPlace&&selectedPlace.content}</p>
 	            </div>
 	            <footer>By Dieter Jackson</footer>
 	         </div>

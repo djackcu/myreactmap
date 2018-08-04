@@ -1,19 +1,34 @@
 import React, { Component } from 'react';
 import {Map, Marker,InfoWindow, GoogleApiWrapper} from 'google-maps-react';
-import {mapStyle, style} from './mapStyle'
+import {mapStyle, style, apiKey, mapVal} from './mapProps'
 
  
 // ...
  
 class MapContainer extends Component {
-	/*fetchPlaces(mapProps, map) {
-		  const {google} = mapProps;
-		  const service = new google.maps.places.PlacesService(map);
-		  // ...
-		}*/
+	state = {
+	    activeMarker: null,
+	    map:{}
+  	}
+
+	fetchPlaces(mapProps, map) {
+		console.log(map);
+		//const {google} = mapProps;
+		//const service = new google.maps.places.PlacesService(map);
+		// ...
+		}
+
+  	onMarkerClick = (props, marker) => {
+    this.props.onSelectPlace(marker);
+      this.setState({
+        activeMarker: marker
+      });
+      console.log(this.props.google);
+    }
+
 
 	render(){
-		const {locations,onCloseClicked,onMarkerClick,activeMarker,showInfoWindow,selectedPlace} = this.props;
+		const {locations,onCloseClicked,showInfoWindow,selectedPlace} = this.props;
 		  if (!this.props.loaded) {
       return <div>Loading...</div>
     }
@@ -23,31 +38,31 @@ class MapContainer extends Component {
           google={this.props.google}
           style={style}
           styles={mapStyle}
-          //onReady={this.fetchPlaces}
+          onReady={this.fetchPlaces}
           initialCenter={{
-          	lat: 23.142807,
-          	lng:-82.353098
+          	lat: mapVal.lat,
+          	lng: mapVal.lng
           }}
-          zoom={15.75}
+          zoom={mapVal.zoom}
           disableDefaultUI = {true}
           onClick={onCloseClicked}
           >
-		    {selectedPlace?
+		    {(showInfoWindow&&selectedPlace)?
 		    	(<Marker key={selectedPlace.title}
 		    		title={selectedPlace.title}
 		    		position={selectedPlace.position}
 		    		animation={this.props.google.maps.Animation.BOUNCE}
-		    		onClick={onMarkerClick}
+		    		onClick={this.onMarkerClick}
 		    	/>):
 		    	(locations.map(local =>(
 			    	<Marker key={local.title}
 			    		title={local.title}
 			    		position={local.position}
-			    		onClick={onMarkerClick}
+			    		onClick={this.onMarkerClick}
 			    	/> 
 		    	)))}
 		    <InfoWindow
-	          marker={activeMarker}
+	          marker={this.state.activeMarker}
 	          visible={showInfoWindow}
 	          onClose={onCloseClicked}
 	          >
@@ -63,5 +78,5 @@ class MapContainer extends Component {
 }
  
 export default GoogleApiWrapper({
-  apiKey: 'AIzaSyCZu8GDVI_5mWqkt-kH0maxMw01y7oR-5E'
+  apiKey: apiKey
 })(MapContainer)

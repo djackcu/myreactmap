@@ -17,8 +17,12 @@ const SideBar = (props) => {
 				            </div>
 	           			<ul className="list-places">
 			              {locations.length === 0?(<li>No place found</li>):(locations.map((local) => (
-	  		              	<li  key={local.title}>
-	  		              		<a onClick={() => onSelectPlace(local)} className="places" >{local.title}</a>
+	  		              	<li  key={local.title} 
+	  		              		tabIndex={0}
+								role="button"
+	  		              		onClick={() => onSelectPlace(local)} 
+	  		              		className="places">
+	  		              		{local.title}
 	  		              	</li>
 	  		              )))}
 			            </ul>		            

@@ -4,7 +4,7 @@ import escapeRegExp from 'escape-string-regexp'
 import MyMap from './mapComponent'
 import dataLocations from './Locations'
 import SideBar from './sideBar'
-//import MapContainer from './mapContainer'
+import Head from './head'
 
 class App extends Component {
   state = {
@@ -81,19 +81,9 @@ toggleSideBar = () => {
     const {listLocations, query, showInfoWindow, selectedPlace, sideBarVisible} = this.state;
     return (
       <div className="App">
-        <header className="App-header">
-        <div className="burger-button">
-        <button className={"hamburger hamburger--arrowalt" + (sideBarVisible ? " is-active" : "")} 
-              type="button" 
-              onClick={this.toggleSideBar}
-          >
-          <span className="hamburger-box">
-            <span className="hamburger-inner"></span>
-          </span>
-        </button>
-        </div>
-          <h1 className="App-title">Welcome to Old Havana City</h1>
-        </header>
+        <Head className="App-header"
+          sideBarVisible={sideBarVisible}
+          toggleSideBar={this.toggleSideBar}/>
         <SideBar className="App-sideBar"
          locations={listLocations} 
          searchLocations={this.searchLocations} 
@@ -105,7 +95,8 @@ toggleSideBar = () => {
         onCloseClicked={this.resetSelected} 
         onSelectPlace={this.onSelectPlace} 
         showInfoWindow={showInfoWindow} 
-        selectedPlace={selectedPlace}/>
+        selectedPlace={selectedPlace}
+        role="application"/>
       </div>
     );
   }

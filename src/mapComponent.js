@@ -6,7 +6,7 @@ import ErrorBoundary from './ErrorBoundary'
 
 //Map container to visualize google maps using react-google-maps (working)
 
-const MyMapComponent = compose(
+const Map = compose(
   withProps({
     googleMapURL: "https://maps.googleapis.com/maps/api/js?v=3.exp&key="+apiKey,
     loadingElement: <div style={style} />,
@@ -56,7 +56,7 @@ class MyMap extends React.PureComponent {
     const {locations,showInfoWindow,selectedPlace,onCloseClicked,onSelectPlace} = this.props;
     return (
       <ErrorBoundary>
-      <MyMapComponent
+      <Map
         locations={locations} 
         showInfoWindow={showInfoWindow} 
         selectedPlace={selectedPlace} 

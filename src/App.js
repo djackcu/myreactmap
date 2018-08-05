@@ -11,11 +11,13 @@ class App extends Component {
     listLocations:[],
     query:'',
     showInfoWindow: false,
-    selectedPlace: null
+    selectedPlace: null,
+    sideBarVisible:true
   }
 componentDidMount(){
     this.setState({listLocations:dataLocations})
 }
+
 //Fetch data from Wikipedia using jsonp
 getData = (place) =>{
   const {title} = place;
@@ -30,6 +32,7 @@ getData = (place) =>{
     return content;
   });
 }
+
 //Search in the list of locations
 searchLocations = (query) => {
   let locationSearched;
@@ -44,6 +47,7 @@ searchLocations = (query) => {
   this.setState({listLocations:locationSearched, query:query.trim()})
   this.resetSelected();
 }
+
 //Deselect location and view all locations
 resetSelected = (props) => {
     this.setState({
@@ -51,6 +55,7 @@ resetSelected = (props) => {
         selectedPlace: null
       })
     };
+
 //Selecting location
 onSelectPlace = (place) => {
     const {title,position} = place;
@@ -60,20 +65,26 @@ onSelectPlace = (place) => {
           selectedPlace:{title,position,content},
         });
     });
+
 //Delay while the data is fetched
     setTimeout(() => {
       this.setState({ showInfoWindow: true })
     }, 1000)
   }
-  
+
+toggleSideBar = () => {
+  this.setState((prevState) => ({
+      sideBarVisible : !prevState.sideBarVisible
+    }));
+}  
   render() {
-    const {listLocations, query,showInfoWindow,selectedPlace} = this.state;
+    const {listLocations, query, showInfoWindow, selectedPlace, sideBarVisible} = this.state;
     return (
       <div className="App">
         <header className="App-header">
           <h1 className="App-title">Welcome to Old Havana City</h1>
         </header>
-        <SideBar className="App-sideBar" locations={listLocations} searchLocations={this.searchLocations} onCloseClicked={this.resetSelected} query={query} selectedPlace={selectedPlace} onSelectPlace={this.onSelectPlace}/>
+        <SideBar className="App-sideBar" locations={listLocations} searchLocations={this.searchLocations} query={query} onSelectPlace={this.onSelectPlace} sideBarVisible={sideBarVisible} toggleSideBar={this.toggleSideBar} />
         <MyMap className="App-map" locations={listLocations} onCloseClicked={this.resetSelected} onSelectPlace={this.onSelectPlace} showInfoWindow={showInfoWindow} selectedPlace={selectedPlace}/>
       </div>
     );

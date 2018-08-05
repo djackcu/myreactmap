@@ -19,7 +19,7 @@ Open the terminal and run following command
 - `cd map-app`
 - `npm install`
 - `npm start`
-The application will open in your browser at the address: `localhost:3000`
+- The application will open in your browser at the address: `localhost:3000`
 
 ### Build width
 This project was created with 

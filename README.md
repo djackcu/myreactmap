@@ -4,10 +4,9 @@ This is the final project of  [Udacity Front-End Developer Nanodegree](https://e
 * [Descriptions](#description)
 * [Getting started](#getting-started)
 * [Build width](#build-width)
-* [App Struture](#app-struture)
+* [App Struture](#app-structure)
 * [Contributing](#contributing)
 * [Authors](#authors)
-* [License](#license)
 
 ### Description
 This is a single page web application that allows the user to search for the location of old buildings(with more than 200 year) In Havana,Cuba.

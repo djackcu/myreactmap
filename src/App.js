@@ -12,7 +12,7 @@ class App extends Component {
     query:'',
     showInfoWindow: false,
     selectedPlace: null,
-    sideBarVisible:true
+    sideBarVisible:false
   }
 componentDidMount(){
     this.setState({listLocations:dataLocations})
@@ -82,10 +82,30 @@ toggleSideBar = () => {
     return (
       <div className="App">
         <header className="App-header">
+        <div className="burger-button">
+        <button className={"hamburger hamburger--arrowalt" + (sideBarVisible ? " is-active" : "")} 
+              type="button" 
+              onClick={this.toggleSideBar}
+          >
+          <span className="hamburger-box">
+            <span className="hamburger-inner"></span>
+          </span>
+        </button>
+        </div>
           <h1 className="App-title">Welcome to Old Havana City</h1>
         </header>
-        <SideBar className="App-sideBar" locations={listLocations} searchLocations={this.searchLocations} query={query} onSelectPlace={this.onSelectPlace} sideBarVisible={sideBarVisible} toggleSideBar={this.toggleSideBar} />
-        <MyMap className="App-map" locations={listLocations} onCloseClicked={this.resetSelected} onSelectPlace={this.onSelectPlace} showInfoWindow={showInfoWindow} selectedPlace={selectedPlace}/>
+        <SideBar className="App-sideBar"
+         locations={listLocations} 
+         searchLocations={this.searchLocations} 
+         query={query} 
+         onSelectPlace={this.onSelectPlace} 
+         sideBarVisible={sideBarVisible}/>
+        <MyMap className="App-map" 
+        locations={listLocations} 
+        onCloseClicked={this.resetSelected} 
+        onSelectPlace={this.onSelectPlace} 
+        showInfoWindow={showInfoWindow} 
+        selectedPlace={selectedPlace}/>
       </div>
     );
   }

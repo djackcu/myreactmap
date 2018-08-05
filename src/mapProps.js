@@ -75,7 +75,8 @@ export const mapStyle = [
 
 export const style = {
   width: '100vw',
-  height: '100vh'
+  height: '95vh',
+  top: '5vh'
 }
 
 export const apiKey = 'AIzaSyCZu8GDVI_5mWqkt-kH0maxMw01y7oR-5E'

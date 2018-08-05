@@ -2,6 +2,7 @@ import React from "react"
 import { compose, withProps } from "recompose"
 import { withScriptjs, withGoogleMap, GoogleMap, Marker, InfoWindow } from "react-google-maps"
 import {mapStyle, style, apiKey, mapVal} from './mapProps'
+import ErrorBoundary from './ErrorBoundary'
 
 //Map container to visualize google maps using react-google-maps (working)
 
@@ -19,7 +20,7 @@ const MyMapComponent = compose(
     defaultZoom={mapVal.zoom}
     defaultCenter={{ lat: mapVal.lat, lng: mapVal.lng }}
     onClick={props.onCloseClicked}
-    defaultOptions={{styles: mapStyle}}
+    defaultOptions={{styles: mapStyle,disableDefaultUI: true}}
   >
     {(props.showInfoWindow&&props.selectedPlace)?
           (<Marker key={props.selectedPlace.title}
@@ -28,6 +29,7 @@ const MyMapComponent = compose(
             animation={window.google.maps.Animation.BOUNCE}
             onClick={() => props.onSelectPlace(props.selectedPlace)}>
             <InfoWindow
+            className="description"
             onCloseClick={props.onCloseClicked}
             >
             {props.selectedPlace?
@@ -53,9 +55,15 @@ class MyMap extends React.PureComponent {
   render() {
     const {locations,showInfoWindow,selectedPlace,onCloseClicked,onSelectPlace} = this.props;
     return (
+      <ErrorBoundary>
       <MyMapComponent
-        locations={locations} showInfoWindow={showInfoWindow} selectedPlace={selectedPlace} onCloseClicked={onCloseClicked} onSelectPlace={onSelectPlace} 
+        locations={locations} 
+        showInfoWindow={showInfoWindow} 
+        selectedPlace={selectedPlace} 
+        onCloseClicked={onCloseClicked} 
+        onSelectPlace={onSelectPlace} 
       />
+      </ErrorBoundary>
     )
   }
 }

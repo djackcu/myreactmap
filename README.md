@@ -12,7 +12,7 @@ This is the final project of  [Udacity Front-End Developer Nanodegree](https://e
 ### Description
 This is a single page web application that allows the user to search for the location of old buildings(with more than 200 year) In Havana,Cuba.
 
-[oldHavana](oldHavana.png)
+![old Havana](oldHavana.png)
 
 ### Getting started
 Open the terminal and run following command

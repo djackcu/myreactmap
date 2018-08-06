@@ -15,6 +15,7 @@ This is a single page web application that allows the user to search for the loc
 
 ### Getting started
 Open the terminal and run following command
+
 **Development mode(without service worker)** 
 - `cd myreactmap`
 - `npm install`

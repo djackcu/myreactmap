@@ -52,8 +52,13 @@ const Map = compose(
 
 class MyMap extends React.PureComponent {
 
+ gm_authFailure(e) {
+   window.alert('Error with Google Maps' );
+ }
+
   render() {
     const {locations,showInfoWindow,selectedPlace,onCloseClicked,onSelectPlace} = this.props;
+    window.gm_authFailure = this.gm_authFailure;
     return (
       <ErrorBoundary>
       <Map

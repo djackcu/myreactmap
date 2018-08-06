@@ -5,14 +5,14 @@ const Head = (props) => {
         return ( 
         	<header className="App-header">
 		        <div className="burger-button">
-			        <button className={"hamburger hamburger--arrowalt" + (sideBarVisible ? " is-active" : "")} 
-			              type="button" 
+			        <div className={"hamburger hamburger--arrowalt" + (sideBarVisible ? " is-active" : "")} 
+			              role="button" 
 			              onClick={toggleSideBar}
 			          >
-			          <span className="hamburger-box">
-			            <span className="hamburger-inner"></span>
-			          </span>
-			        </button>
+			          <div className="hamburger-box">
+			            <div className="hamburger-inner"></div>
+			          </div>
+			        </div>
 		        </div>
 		          <h1 className="App-title">Welcome to Old Havana City</h1>
         	</header>

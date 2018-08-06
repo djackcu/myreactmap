@@ -16,7 +16,7 @@ body {
     position: fixed;
     z-index: 1;
     width: 100%;
-    height: 5vh;
+    height: 50px;
     padding: 10px;
     color: #fff;
     display: flex;
@@ -25,15 +25,13 @@ body {
 
 .App-title {
     margin-right: 1.5rem;
-    font-size: 1.5em;
+    font-size: 1.2em;
 }
 
 .App-map {
     top: 70px;
     left: 250px;
 }
-
-
 
 
 /*!
@@ -230,4 +228,10 @@ body {
     color:#fff;
 }
 
-         
+
+
+@media only screen and (min-width: 425px) {
+    .App-title {
+    font-size: 1.5em;
+    }
+}

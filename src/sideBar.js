@@ -1,5 +1,5 @@
 import React from 'react';
-
+//Component to visualize sidebar. It's visible with the boolean sideBarVisible that is toggle by a button in the headbar
 const SideBar = (props) => {
     	const { locations, query, searchLocations, onSelectPlace, sideBarVisible} = props;
         return ( 

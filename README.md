@@ -15,16 +15,26 @@ This is a single page web application that allows the user to search for the loc
 
 ### Getting started
 Open the terminal and run following command
-- `cd map-app`
+**Development mode(without service worker)** 
+- `cd myreactmap`
 - `npm install`
 - `npm start`
 - The application will open in your browser at the address: `localhost:3000`
+
+**Production build(with service worker)** 
+- `cd myreactmap`
+- `npm install`
+- `npm build`
+- `serve -s build`
+- The application will open in your browser at the address: `localhost:5000`
+
 
 ### Build width
 This project was created with 
 - [REACT](https://reactjs.org/)
 - [Google Maps API](https://cloud.google.com/maps-platform/)
 - [Wikipedia API](https://www.mediawiki.org/wiki/API:Main_page) 
+
 #### Third Libraries
 - [escape-string-regexp](https://github.com/sindresorhus/escape-string-regexp)
 - [fetch-jsonp](https://github.com/camsong/fetch-jsonp)

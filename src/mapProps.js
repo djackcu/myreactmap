@@ -72,14 +72,17 @@ export const mapStyle = [
 	     	{ "color": "#ecc080" }]
 	     }
 ];
-
+//Style of container of map
 export const style = {
   width: '100vw',
   height: '95vh',
   top: '5vh'
 }
 
+//Values to create map
 export const apiKey = 'AIzaSyCZu8GDVI_5mWqkt-kH0maxMw01y7oR-5E'
+
+export const googleMapsUrl = 'https://maps.googleapis.com/maps/api/js?v=3.exp&key='
 
 export const mapVal = {
 		lat: 23.142807,

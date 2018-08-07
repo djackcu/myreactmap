@@ -1,14 +1,14 @@
 import React from "react"
 import { compose, withProps } from "recompose"
 import { withScriptjs, withGoogleMap, GoogleMap, Marker, InfoWindow } from "react-google-maps"
-import {mapStyle, style, apiKey, mapVal} from './mapProps'
-import ErrorBoundary from './ErrorBoundary'
+import {mapStyle, style, apiKey, mapVal,googleMapsUrl} from './mapProps'
+
 
 //Map container to visualize google maps using react-google-maps (working)
 
 const Map = compose(
   withProps({
-    googleMapURL: "https://maps.googleapis.com/maps/api/js?v=3.exp&key="+apiKey,
+    googleMapURL: googleMapsUrl+apiKey,
     loadingElement: <div style={style} />,
     containerElement: <div style={style} />,
     mapElement: <div style={style} />,
@@ -51,25 +51,41 @@ const Map = compose(
 )
 
 class MyMap extends React.PureComponent {
-
+constructor(props) {
+    super(props);
+    this.state = {
+      hasError: false
+    }
+  }
+//catching error with Google Maps Apikey
  gm_authFailure(e) {
    window.alert('Error with Google Maps' );
  }
 
-  render() {
+//Handling error on load Map
+componentDidCatch(error, info) {
+   // Display fallback UI
+  this.setState({ hasError: true });
+    console.log(error, info);
+}
+
+render() {
     const {locations,showInfoWindow,selectedPlace,onCloseClicked,onSelectPlace} = this.props;
+    
     window.gm_authFailure = this.gm_authFailure;
+    
+  if (this.state.hasError) {
+    return (<div class="alert" role="alert">Something went wrong with Google Maps</div>)
+  }else{
     return (
-      <ErrorBoundary>
       <Map
         locations={locations} 
         showInfoWindow={showInfoWindow} 
         selectedPlace={selectedPlace} 
         onCloseClicked={onCloseClicked} 
         onSelectPlace={onSelectPlace} 
-      />
-      </ErrorBoundary>
-    )
-  }
+      />)
+    }
+}
 }
 export default MyMap

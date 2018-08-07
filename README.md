@@ -25,7 +25,7 @@ Open the terminal and run following command
 **Production build(with service worker)** 
 - `cd myreactmap`
 - `npm install`
-- `npm build`
+- `npm run build`
 - `serve -s build`
 - The application will open in your browser at the address: `localhost:5000`
 

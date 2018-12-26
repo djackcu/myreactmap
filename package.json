@@ -2,6 +2,7 @@
   "name": "myreactmap",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://djackcu.github.io/myreactmap/",
   "dependencies": {
     "escape-string-regexp": "^1.0.5",
     "fetch-jsonp": "^1.1.3",

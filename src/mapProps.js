@@ -80,7 +80,7 @@ export const style = {
 }
 
 //Values to create map
-export const apiKey = 'AIzaSyCZu8GDVI_5mWqkt-kH0maxMw01y7oR-5E'
+export const apiKey = process.env.API_KEY
 
 export const googleMapsUrl = 'https://maps.googleapis.com/maps/api/js?v=3.exp&key='
 

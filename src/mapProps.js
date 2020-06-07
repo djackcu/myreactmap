@@ -80,9 +80,9 @@ export const style = {
 }
 
 //Values to create map
-export const apiKey = process.env.API_KEY
+export const apiKey = process.env.REACT_APP_API_KEY
 
-export const googleMapsUrl = 'https://maps.googleapis.com/maps/api/js?v=3.exp&key='
+export const googleMapsUrl = 'https://maps.googleapis.com/maps/api/js?key='
 
 export const mapVal = {
 		lat: 23.142807,
